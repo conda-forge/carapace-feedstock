@@ -12,7 +12,9 @@ source:
 build:
   script:
     - cd cmd/carapace
-    - go generate ./...
+    - if: osx and arm64
+      then: GOARCH=amd64 go generate ./...
+      else: go generate ./...
     - if: win
       then: go build -v -ldflags "-w -s" -o %PREFIX%/bin/carapace .
       else: go build -v -ldflags "-w -s" -o $PREFIX/bin/carapace .
