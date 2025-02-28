@@ -21,7 +21,7 @@ build:
     - if: win
       then: go-licenses save . --save_path %SRC_DIR%/library_licenses
       else: go-licenses save . --save_path $SRC_DIR/library_licenses
-  number: 0
+  number: 1
 
 requirements:
   build:
