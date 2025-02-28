@@ -16,7 +16,7 @@ build:
       then: GOARCH=amd64 go generate ./...
       else: go generate ./...
     - if: win
-      then: go build -v -ldflags "-w -s" -o %PREFIX%/bin/carapace .
+      then: go build -v -ldflags "-w -s" -o %LIBRARY_PREFIX%\bin\carapace .
       else: go build -v -ldflags "-w -s" -o $PREFIX/bin/carapace .
     - if: win
       then: go-licenses save . --save_path %SRC_DIR%/library_licenses
