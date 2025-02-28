@@ -13,7 +13,9 @@ build:
   script:
     - cd cmd/carapace
     - go generate ./...
-    - go build -v -ldflags "-w -s" -o $PREFIX/bin/carapace .
+    - if: win
+      then: go build -v -ldflags "-w -s" -o %PREFIX%/bin/carapace .
+      else: go build -v -ldflags "-w -s" -o $PREFIX/bin/carapace .
     - if: win
       then: go-licenses save . --save_path %SRC_DIR%/library_licenses
       else: go-licenses save . --save_path $SRC_DIR/library_licenses
