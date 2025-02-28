@@ -12,12 +12,16 @@ source:
 build:
   script:
     - cd cmd/carapace
-    - go generate ./...
-    - go install
+    - if: osx and arm64
+      then: GOARCH=amd64 go generate ./...
+      else: go generate ./...
+    - if: win
+      then: go build -v -ldflags "-w -s -X main.version=${{ version }}" -o %LIBRARY_PREFIX%\bin\carapace.exe .
+      else: go build -v -ldflags "-w -s -X main.version=${{ version }}" -o $PREFIX/bin/carapace .
     - if: win
       then: go-licenses save . --save_path %SRC_DIR%/library_licenses
       else: go-licenses save . --save_path $SRC_DIR/library_licenses
-  number: 0
+  number: 1
 
 requirements:
   build:
