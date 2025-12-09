@@ -1,6 +1,6 @@
 context:
   name: carapace
-  version: "1.5.6"
+  version: "1.5.7"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/carapace-sh/carapace-bin/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: d470c743fdbc24ea0a8d105e0836240b377504be879fd79e20bdd2379a276a24
+  sha256: 288f5629d9d842366089c75c388566b62bd452e5d2652384daeb419b134ec354
 build:
   script:
     - cd cmd/carapace
