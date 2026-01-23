@@ -11,6 +11,9 @@ source:
   sha256: 8e160f6987406c8ab08230993c10d675775e26bfddaf4ebb456bad32b5ff20ad
 build:
   script:
+    - if: win
+      then: set "GOPATH=%TEMP%\gopath"
+      else: export GOPATH=$(mktemp -d)
     - cd cmd/carapace
     - if: osx and arm64
       then: GOARCH=amd64 go generate ./...
