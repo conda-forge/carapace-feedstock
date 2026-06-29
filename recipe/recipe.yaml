@@ -15,9 +15,16 @@ build:
       then: set "GOPATH=%TEMP%\gopath"
       else: export GOPATH=$(mktemp -d)
     - cd cmd/carapace
+    - if: win
+      then:
+        - go build -o ..\carapace-generate\carapace-generate.exe ..\carapace-generate
+        - ..\carapace-generate\carapace-generate.exe generate-all ..\..\completers
+        - ..\carapace-generate\carapace-generate.exe macros --code github.com/carapace-sh/carapace-bin/pkg/actions github.com/carapace-sh/carapace-bridge/pkg/actions github.com/carapace-sh/carapace-jjlex/pkg/actions --output ..\..\pkg\actions\actions_generated.go
+        - ..\carapace-generate\carapace-generate.exe conditions ..\..\pkg\conditions --output ..\..\pkg\conditions\conditions_generated.go
     - if: osx and arm64
       then: GOARCH=amd64 go generate ./...
-      else: go generate ./...
+    - if: linux or (osx and not arm64)
+      then: go generate ./...
     - if: win
       then:
         - go build -v -ldflags "-w -s -X main.version=${{ version }}" -o %LIBRARY_PREFIX%\bin\carapace.exe .
